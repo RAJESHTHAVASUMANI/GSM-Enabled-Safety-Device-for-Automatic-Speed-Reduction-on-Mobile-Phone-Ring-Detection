@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdlib> // For rand() and srand()
+#include <ctime>   // For time()
+
+using namespace std;
+
+int main() {
+    srand(time(nullptr)); // Seed the random number generator
+
+    // Constants for bike speed
+    const int NORMAL_SPEED = 50; // Normal speed of the bike
+    const int SLOW_SPEED = 30;   // Speed when the phone rings
+
+    
+    int bikeSpeed = NORMAL_SPEED;
+    bool isPhoneRinging = false;
+
+   
+    for (int timeElapsed = 0; timeElapsed <= 60; timeElapsed++) { // Simulating 1 minute
+      
+        if (rand() % 10 == 0) { // 1 in 10 chance of the phone ringing in each iteration
+            isPhoneRinging = true;
+            cout << "Phone is ringing!" << endl;
+        }
+
+        // Adjust bike speed based on phone ringing
+        if (isPhoneRinging) {
+            bikeSpeed = SLOW_SPEED;
+        } else {
+            bikeSpeed = NORMAL_SPEED;
+        }
+
+
+        cout << "Time: " << timeElapsed << " seconds | Bike speed: " << bikeSpeed << " km/h" << endl;
+
+       
+        system("sleep 1");
+        if (isPhoneRinging && timeElapsed >= 5) {
+            isPhoneRinging = false;
+            cout << "Phone call ended." << endl;
+        }
+    }
+
+    return 0;
+}
